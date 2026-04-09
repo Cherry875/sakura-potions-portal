@@ -41,9 +41,9 @@ const pqLogoSrc = fs.existsSync(pqPngPath) ? '/pantry-quest-logo.png' : '/pantry
 
   <div class="mt-16 w-full">
     <h2 class="text-2xl font-bold text-center text-sakura-800 mb-8">注目のプロジェクト</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="flex overflow-x-auto pb-8 snap-x snap-mandatory md:grid md:grid-cols-2 gap-8 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide">
       <!-- Pantry Quest Project Card -->
-      <a href="/pantry-quest" class="block group">
+      <a href="/pantry-quest" class="block group shrink-0 w-[85vw] md:w-auto snap-center">
         <div class="bg-white rounded-3xl p-8 border-2 border-transparent hover:border-sakura-200 shadow-sm hover:shadow-xl transition-all duration-300">
           {hasPqLogo ? (
             <img src={pqLogoSrc} alt="Pantry Quest Logo" class="w-16 h-16 rounded-2xl object-cover mb-6 shadow-sm border border-gray-100" />
@@ -64,7 +64,7 @@ const pqLogoSrc = fs.existsSync(pqPngPath) ? '/pantry-quest-logo.png' : '/pantry
       </a>
 
       <!-- Future Project Placeholder -->
-      <div class="bg-gray-50 rounded-3xl p-8 border-2 border-dashed border-gray-200 flex flex-col items-center justify-center text-center opacity-70">
+      <div class="bg-gray-50 rounded-3xl p-8 border-2 border-dashed border-gray-200 flex flex-col items-center justify-center text-center opacity-70 shrink-0 w-[85vw] md:w-auto snap-center">
         <div class="w-16 h-16 bg-gray-200 text-gray-400 rounded-2xl flex items-center justify-center text-3xl mb-4">
           ✨
         </div>
@@ -90,9 +90,9 @@ const pqLogoSrc = fs.existsSync(pqPngPath) ? '/pantry-quest-logo.png' : '/pantry
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="flex overflow-x-auto pb-6 snap-x snap-mandatory md:grid md:grid-cols-2 gap-6 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide">
       {labLogs.map(log => (
-        <a href={`/docs/${log.id}`} class="block group">
+        <a href={`/docs/${log.id}`} class="block group shrink-0 w-[85vw] md:w-auto snap-center">
           <article class="bg-white p-6 rounded-2xl shadow-sm border border-sakura-100 hover:border-sakura-300 hover:shadow-md transition-all duration-300 h-full flex flex-col justify-between">
             <div>
               <div class="flex justify-between items-start mb-2">
@@ -118,7 +118,7 @@ const pqLogoSrc = fs.existsSync(pqPngPath) ? '/pantry-quest-logo.png' : '/pantry
           </article>
         </a>
       ))}
-      <div class="bg-gray-50 rounded-2xl p-6 border-2 border-dashed border-gray-200 flex flex-col items-center justify-center text-center opacity-70 min-h-[160px]">
+      <div class="bg-gray-50 rounded-2xl p-6 border-2 border-dashed border-gray-200 flex flex-col items-center justify-center text-center opacity-70 min-h-[160px] shrink-0 w-[85vw] md:w-auto snap-center">
         <div class="text-gray-400 mb-2">
           <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
         </div>
