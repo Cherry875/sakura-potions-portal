@@ -7,9 +7,15 @@ import path from 'node:path';
 
 // Get Pantry Quest docs
 const allDocs = await getCollection('docs');
-const pqDocs = allDocs
-  .filter(doc => doc.data.category === 'Pantry Quest')
+const pqDocs = allDocs.filter(doc => doc.data.category === 'Pantry Quest');
+
+const featureDocs = pqDocs
+  .filter(doc => !doc.data.title.includes('リリースノート'))
   .sort((a, b) => a.data.order - b.data.order);
+
+const releaseDocs = pqDocs
+  .filter(doc => doc.data.title.includes('リリースノート'))
+  .sort((a, b) => b.data.order - a.data.order);
 
 // Check logo
 const pqPngPath = path.join(process.cwd(), 'public', 'pantry-quest-logo.png');
@@ -42,7 +48,6 @@ const pqLogoSrc = fs.existsSync(pqPngPath) ? '/pantry-quest-logo.png' : '/pantry
       </p>
       
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <!-- Replace href with actual app url later if needed -->
         <a href="https://pantry-quest.pages.dev" target="_blank" rel="noopener noreferrer" class="bg-sakura-500 hover:bg-sakura-600 text-white font-bold py-3 px-8 rounded-full shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2">
           アプリを開く
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -60,8 +65,8 @@ const pqLogoSrc = fs.existsSync(pqPngPath) ? '/pantry-quest-logo.png' : '/pantry
       関連ドキュメント
     </h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pb-12">
-      {pqDocs.map(doc => (
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+      {featureDocs.map(doc => (
         <a href={`/docs/${doc.id}`} class="block group h-full">
           <article class="h-full bg-white p-6 rounded-2xl shadow-sm border border-sakura-100 hover:border-sakura-300 hover:shadow-md transition-all duration-300 transform group-hover:-translate-y-1">
             <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-sakura-600 transition-colors">
@@ -74,6 +79,39 @@ const pqLogoSrc = fs.existsSync(pqPngPath) ? '/pantry-quest-logo.png' : '/pantry
             )}
             <div class="mt-4 flex items-center text-sm font-medium text-sakura-500 group-hover:text-sakura-600">
               続きを読む
+              <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </article>
+        </a>
+      ))}
+    </div>
+
+    <!-- Release Notes Section -->
+    <h2 class="text-2xl font-bold text-sakura-900 mb-6 flex items-center gap-2">
+      <svg class="w-6 h-6 text-sakura-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+      </svg>
+      リリースノート（更新履歴）
+    </h2>
+
+    <div class="grid grid-cols-1 gap-4 pb-12">
+      {releaseDocs.map(doc => (
+        <a href={`/docs/${doc.id}`} class="block group">
+          <article class="bg-white p-5 rounded-2xl shadow-sm border border-sakura-100 hover:border-sakura-300 hover:shadow-md transition-all duration-300 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h3 class="text-lg font-bold text-gray-900 group-hover:text-sakura-600 transition-colors">
+                {doc.data.title}
+              </h3>
+              {doc.data.description && (
+                <p class="text-gray-600 text-sm mt-1 line-clamp-1">
+                  {doc.data.description}
+                </p>
+              )}
+            </div>
+            <div class="flex items-center text-sm font-medium text-sakura-500 group-hover:text-sakura-600 shrink-0">
+              詳細を見る
               <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>

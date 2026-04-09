@@ -1,8 +1,15 @@
 ---
 import fs from 'node:fs';
 import path from 'node:path';
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BrandLogo from '../components/BrandLogo.astro';
+
+// Get Lab Logs
+const allDocs = await getCollection('docs');
+const labLogs = allDocs
+  .filter(doc => doc.data.category === 'Lab Logs')
+  .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
 
 // Pantry Questのロゴ画像の有無をチェック
 const pqPngPath = path.join(process.cwd(), 'public', 'pantry-quest-logo.png');
@@ -65,6 +72,57 @@ const pqLogoSrc = fs.existsSync(pqPngPath) ? '/pantry-quest-logo.png' : '/pantry
         <p class="text-gray-400 text-sm">
           新しい「ちゃめっ気」あふれるツールを鋭意開発中です。
         </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lab Logs Section -->
+  <div class="mt-20 w-full mb-16">
+    <div class="flex flex-col items-center mb-8">
+      <h2 class="text-2xl font-bold text-sakura-800 flex items-center gap-2">
+        <svg class="w-6 h-6 text-sakura-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+        </svg>
+        Lab Logs (実験記録)
+      </h2>
+      <p class="text-gray-500 text-sm mt-2 text-center max-w-2xl">
+        私自身がこのプロジェクトを始めようと思った経緯や、まだ「Potion（魔法の薬）」の調合が終わっていない未完成な日々の悩みなど、等身大の気づきをつらつらと書き留めていく実験記録です。
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {labLogs.map(log => (
+        <a href={`/docs/${log.id}`} class="block group">
+          <article class="bg-white p-6 rounded-2xl shadow-sm border border-sakura-100 hover:border-sakura-300 hover:shadow-md transition-all duration-300 h-full flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-2">
+                <span class="inline-block px-2 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded">
+                  {log.data.date ? new Date(log.data.date).toLocaleDateString('ja-JP') : 'Recent'}
+                </span>
+              </div>
+              <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-sakura-600 transition-colors">
+                {log.data.title}
+              </h3>
+              {log.data.description && (
+                <p class="text-gray-600 text-sm line-clamp-2">
+                  {log.data.description}
+                </p>
+              )}
+            </div>
+            <div class="mt-4 flex items-center text-sm font-medium text-sakura-500 group-hover:text-sakura-600">
+              記録を読む
+              <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </article>
+        </a>
+      ))}
+      <div class="bg-gray-50 rounded-2xl p-6 border-2 border-dashed border-gray-200 flex flex-col items-center justify-center text-center opacity-70 min-h-[160px]">
+        <div class="text-gray-400 mb-2">
+          <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+        </div>
+        <p class="text-gray-500 text-sm font-medium">次の実験記録を準備中です...</p>
       </div>
     </div>
   </div>
