@@ -36,7 +36,7 @@ const pqLogoSrc = fs.existsSync(pqPngPath) ? '/pantry-quest-logo.png' : '/pantry
     <h2 class="text-2xl font-bold text-center text-sakura-800 mb-8">注目のプロジェクト</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <!-- Pantry Quest Project Card -->
-      <a href="/docs?category=Pantry%20Quest" class="block group">
+      <a href="/pantry-quest" class="block group">
         <div class="bg-white rounded-3xl p-8 border-2 border-transparent hover:border-sakura-200 shadow-sm hover:shadow-xl transition-all duration-300">
           {hasPqLogo ? (
             <img src={pqLogoSrc} alt="Pantry Quest Logo" class="w-16 h-16 rounded-2xl object-cover mb-6 shadow-sm border border-gray-100" />
@@ -48,11 +48,11 @@ const pqLogoSrc = fs.existsSync(pqPngPath) ? '/pantry-quest-logo.png' : '/pantry
           <h3 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-sakura-600 transition-colors">
             Pantry Quest
           </h3>
-          <p class="text-gray-600 mb-4 line-clamp-3">
-            冷蔵庫の余り物をAIが賢く管理してくれる、サクサク動く在庫管理アプリ。
+          <p class="text-gray-600 mb-4">
+            冷蔵庫の余り物をAIが賢く管理してくれる在庫管理アプリ。
             「もう賞味期限を気にしない」生活をサポートします。
           </p>
-          <span class="text-sakura-500 font-medium group-hover:underline underline-offset-4">関連ドキュメントを見る &rarr;</span>
+          <span class="text-sakura-500 font-medium group-hover:underline underline-offset-4">プロジェクト詳細を見る &rarr;</span>
         </div>
       </a>
 

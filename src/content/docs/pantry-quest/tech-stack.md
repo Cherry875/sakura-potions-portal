@@ -1,5 +1,5 @@
 ---
-title: "技術解説：サクサク動くUIの裏側"
+title: "技術解説：快適なUIの裏側"
 category: "Pantry Quest"
 description: "「指に吸い付く」ようなUXを実現するための、TanStack Queryによる楽観的更新の実装。"
 date: 2026-04-09

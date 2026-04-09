@@ -1,0 +1,86 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import fs from 'node:fs';
+import path from 'node:path';
+
+// Get Pantry Quest docs
+const allDocs = await getCollection('docs');
+const pqDocs = allDocs
+  .filter(doc => doc.data.category === 'Pantry Quest')
+  .sort((a, b) => a.data.order - b.data.order);
+
+// Check logo
+const pqPngPath = path.join(process.cwd(), 'public', 'pantry-quest-logo.png');
+const pqJpgPath = path.join(process.cwd(), 'public', 'pantry-quest-logo.jpg');
+const hasPqLogo = fs.existsSync(pqPngPath) || fs.existsSync(pqJpgPath);
+const pqLogoSrc = fs.existsSync(pqPngPath) ? '/pantry-quest-logo.png' : '/pantry-quest-logo.jpg';
+---
+
+<BaseLayout title="Pantry Quest - プロジェクト詳細">
+  <Breadcrumbs items={[{ label: 'Pantry Quest' }]} />
+
+  <div class="max-w-4xl mx-auto">
+    <!-- Hero Section -->
+    <div class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-sakura-100 mb-10 text-center">
+      <div class="flex justify-center mb-6">
+        {hasPqLogo ? (
+          <img src={pqLogoSrc} alt="Pantry Quest Logo" class="w-24 h-24 rounded-3xl object-cover shadow-md border border-gray-100" />
+        ) : (
+          <div class="w-24 h-24 bg-orange-100 text-orange-500 rounded-3xl flex items-center justify-center text-4xl shadow-sm border border-gray-100">
+            🍱
+          </div>
+        )}
+      </div>
+      <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-4">
+        Pantry Quest
+      </h1>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+        冷蔵庫の余り物をAIが賢く管理してくれる在庫管理アプリ。
+        「もう賞味期限を気にしない」生活をサポートします。
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <!-- Replace href with actual app url later if needed -->
+        <a href="https://pantry-quest.pages.dev" target="_blank" rel="noopener noreferrer" class="bg-sakura-500 hover:bg-sakura-600 text-white font-bold py-3 px-8 rounded-full shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2">
+          アプリを開く
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Documentation Section -->
+    <h2 class="text-2xl font-bold text-sakura-900 mb-6 flex items-center gap-2">
+      <svg class="w-6 h-6 text-sakura-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+      </svg>
+      関連ドキュメント
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pb-12">
+      {pqDocs.map(doc => (
+        <a href={`/docs/${doc.id}`} class="block group h-full">
+          <article class="h-full bg-white p-6 rounded-2xl shadow-sm border border-sakura-100 hover:border-sakura-300 hover:shadow-md transition-all duration-300 transform group-hover:-translate-y-1">
+            <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-sakura-600 transition-colors">
+              {doc.data.title}
+            </h3>
+            {doc.data.description && (
+              <p class="text-gray-600 text-sm line-clamp-3">
+                {doc.data.description}
+              </p>
+            )}
+            <div class="mt-4 flex items-center text-sm font-medium text-sakura-500 group-hover:text-sakura-600">
+              続きを読む
+              <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </article>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
