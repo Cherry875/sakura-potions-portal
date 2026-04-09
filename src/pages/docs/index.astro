@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+
+const allDocs = await getCollection('docs');
+// Sort by order 
+const sortedDocs = allDocs.sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="Documents">
+  <Breadcrumbs items={[{ label: 'Documents' }]} />
+
+  <div class="mb-10 text-center">
+    <h1 class="text-4xl font-bold text-sakura-900 mb-4 tracking-tight">Documents</h1>
+    <p class="text-gray-600 max-w-2xl mx-auto">Sakura Potionsが提供する各種プロダクトの詳細なドキュメント、使い方、開発背景などをまとめています。</p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pb-12">
+    {sortedDocs.map(doc => (
+      <a href={`/docs/${doc.id}`} class="block group h-full">
+        <article class="h-full bg-white p-6 rounded-2xl shadow-sm border border-sakura-100 hover:border-sakura-300 hover:shadow-md transition-all duration-300 transform group-hover:-translate-y-1">
+          <div class="flex items-center justify-between mb-3">
+            <span class="inline-block px-3 py-1 bg-sakura-50 text-sakura-700 text-xs font-semibold rounded-full border border-sakura-200">
+              {doc.data.category}
+            </span>
+          </div>
+          <h2 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-sakura-600 transition-colors">
+            {doc.data.title}
+          </h2>
+          {doc.data.description && (
+            <p class="text-gray-600 text-sm line-clamp-3">
+              {doc.data.description}
+            </p>
+          )}
+          <div class="mt-4 flex items-center text-sm font-medium text-sakura-500 group-hover:text-sakura-600">
+            続きを読む
+            <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </div>
+        </article>
+      </a>
+    ))}
+  </div>
+</BaseLayout>

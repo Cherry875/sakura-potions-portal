@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+---
+
+<BaseLayout title="運営元について">
+  <Breadcrumbs items={[{ label: '運営元について (About)' }]} />
+  
+  <article class="prose prose-sakura max-w-none bg-white p-8 rounded-2xl shadow-sm border border-sakura-100 mb-8">
+    <h1 class="text-3xl font-bold text-sakura-900 mb-6">About Sakura Potions</h1>
+    
+    <div class="space-y-6 text-gray-700">
+      <section>
+        <h2 class="text-xl font-bold text-sakura-800 border-b border-sakura-200 pb-2 mb-4">ミッション</h2>
+        <p class="text-lg leading-relaxed">
+          <strong>「日常の『痒い所』に手が届く、ちゃめっ気あふれる解決策の集積地」</strong>
+        </p>
+        <p>
+          Sakura Potionsは、生活の中で感じるちょっとした不便や面倒な出来事を、テクノロジーと少しの遊び心（ちゃめっ気）を使って解決することを目指すプロジェクトです。<br>
+          大がかりなシステムではなく、毎日の生活にスッと溶け込み、使うたびに少しフフッと笑顔になるようなプロダクトを開発しています。
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-sakura-800 border-b border-sakura-200 pb-2 mb-4">開発へのこだわり</h2>
+        <p>
+          私たちが最も大切にしているのは「UX（ユーザー体験）」です。<br>
+          例えば、食材管理アプリ「Pantry Quest」では、操作のレスポンス速度を極限まで高め（楽観的更新の採用など）、思考を妨げないUIを実現しています。また、音声入力によるAI処理など、最新の技術を「誰でも簡単に使える形」に翻訳して組み込んでいます。
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold text-sakura-800 border-b border-sakura-200 pb-2 mb-4">このポータルサイトについて</h2>
+        <p>
+          当ポータルサイトは、私たちが開発した各種アプリケーションの詳細なマニュアルや、裏側の技術スタック、開発背景のストーリーをまとめた「ドキュメントの集積地」です。<br>
+          ユーザーの皆様がより迷わず、より楽しくプロダクトを活用できるよう、継続的な情報のアップデートを行ってまいります。
+        </p>
+      </section>
+    </div>
+  </article>
+</BaseLayout>

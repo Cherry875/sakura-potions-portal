@@ -1,0 +1,30 @@
+---
+import BrandLogo from './BrandLogo.astro';
+
+const links = [
+  { href: '/docs', label: 'Documents' },
+  { href: '/about', label: 'About' }
+];
+---
+
+<header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-sakura-200 shadow-sm">
+  <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2 group">
+      <div class="group-hover:scale-110 transition-transform flex items-center justify-center">
+        <BrandLogo size="sm" />
+      </div>
+      <span class="font-bold text-lg text-sakura-900 tracking-wide">Sakura Potions</span>
+    </a>
+    <nav>
+      <ul class="flex items-center gap-6">
+        {links.map((link) => (
+          <li>
+            <a href={link.href} class="text-sm font-medium text-gray-600 hover:text-sakura-500 transition-colors">
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>

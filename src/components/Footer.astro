@@ -1,0 +1,28 @@
+---
+const year = new Date().getFullYear();
+const footerLinks = [
+  { href: '/about', label: '運営元について' },
+  { href: '/privacy-policy', label: 'プライバシーポリシー' },
+  { href: '/disclaimer', label: '免責事項' },
+  { href: '/contact', label: 'お問い合わせ' },
+];
+---
+
+<footer class="bg-sakura-50 border-t border-sakura-200 mt-auto py-8">
+  <div class="max-w-4xl mx-auto px-4 flex flex-col items-center gap-6">
+    <nav>
+      <ul class="flex flex-wrap justify-center gap-x-6 gap-y-2">
+        {footerLinks.map(link => (
+          <li>
+            <a href={link.href} class="text-sm text-gray-500 hover:text-sakura-600 transition-colors">
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="text-center text-xs text-gray-400">
+      &copy; {year} Sakura Potions. All rights reserved.
+    </div>
+  </div>
+</footer>

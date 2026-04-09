@@ -1,0 +1,35 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+
+interface Props {
+  size?: 'sm' | 'lg';
+}
+
+const { size = 'sm' } = Astro.props;
+
+// publicフォルダの中に 'logo.png' または 'logo.jpg' が存在するかビルド時にチェックします
+const pngPath = path.join(process.cwd(), 'public', 'logo.png');
+const jpgPath = path.join(process.cwd(), 'public', 'logo.jpg');
+
+const hasPng = fs.existsSync(pngPath);
+const hasJpg = fs.existsSync(jpgPath);
+
+const hasLogo = hasPng || hasJpg;
+const logoSrc = hasPng ? '/logo.png' : '/logo.jpg';
+
+// サイズに応じたスタイリング
+const baseClasses = size === 'sm' 
+  ? "w-8 h-8 rounded-full flex items-center justify-center font-bold"
+  : "w-24 h-24 rounded-full flex items-center justify-center text-5xl mb-6 shadow-lg shadow-sakura-200";
+
+const fallbackTheme = "bg-sakura-400 text-white";
+---
+
+{hasLogo ? (
+  <img src={logoSrc} alt="Sakura Potions Logo" class={`${baseClasses} object-cover`} />
+) : (
+  <div class={`${baseClasses} ${fallbackTheme} transition-transform`}>
+    🧪
+  </div>
+)}

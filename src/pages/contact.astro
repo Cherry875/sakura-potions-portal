@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+---
+
+<BaseLayout title="お問い合わせ">
+  <Breadcrumbs items={[{ label: 'お問い合わせ' }]} />
+  
+  <article class="prose prose-sakura max-w-none bg-white p-8 rounded-2xl shadow-sm border border-sakura-100 mb-8">
+    <h1 class="text-3xl font-bold text-sakura-900 mb-4">お問い合わせ</h1>
+    <p class="text-gray-600 mb-6">
+      Sakura Potions の提供するツールについてのご質問、または「こういう不便を解決するツールが欲しい！」といった新しいアプリのアイデアなどがございましたら、以下のフォームよりお気軽にご連絡ください。
+    </p>
+
+    <div class="w-full flex justify-center bg-sakura-50 p-4 rounded-xl border border-sakura-200">
+      <!-- 
+        TODO: 実際のGoogleフォームを作成し、以下の属性を置き換えてください。
+        src="https://forms.gle/STGjf5FrEgsWzcAe6" 
+      -->
+      <iframe 
+        src="https://docs.google.com/forms/d/e/1FAIpQLScNVtMI1GKHgwp25KrDx9Vw12SKYK7h5V1D0S82OipOeGFE2w/viewform?embedded=true" 
+        width="640" 
+        height="800" 
+        frameborder="0" 
+        marginheight="0" 
+        marginwidth="0"
+        class="w-full max-w-[640px] bg-white rounded-lg shadow-sm"
+      >
+        読み込んでいます…
+      </iframe>
+    </div>
+  </article>
+</BaseLayout>

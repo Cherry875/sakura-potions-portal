@@ -1,11 +1,71 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import fs from 'node:fs';
+import path from 'node:path';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BrandLogo from '../components/BrandLogo.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Pantry Questのロゴ画像の有無をチェック
+const pqPngPath = path.join(process.cwd(), 'public', 'pantry-quest-logo.png');
+const pqJpgPath = path.join(process.cwd(), 'public', 'pantry-quest-logo.jpg');
+const hasPqLogo = fs.existsSync(pqPngPath) || fs.existsSync(pqJpgPath);
+const pqLogoSrc = fs.existsSync(pqPngPath) ? '/pantry-quest-logo.png' : '/pantry-quest-logo.jpg';
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout title="ホーム">
+  <div class="flex flex-col items-center justify-center py-20 text-center">
+    <BrandLogo size="lg" />
+    <h1 class="text-4xl md:text-5xl font-extrabold text-sakura-900 tracking-tight mb-6">
+      Sakura Potions <span class="text-sakura-400">Portal</span>
+    </h1>
+    <p class="text-xl text-gray-600 max-w-2xl leading-relaxed mb-10">
+      「日常の『痒い所』に手が届く、ちゃめっ気あふれる解決策の集積地」へようこそ。<br>
+      私たちが開発したツールのマニュアルや、裏側の技術スタックを公開しています。
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 w-full justify-center max-w-md">
+      <a href="/docs" class="flex-1 bg-sakura-500 hover:bg-sakura-600 text-white font-bold py-3 px-8 rounded-full shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1">
+        ドキュメントを読む
+      </a>
+      <a href="/contact" class="flex-1 bg-white hover:bg-sakura-50 border border-sakura-200 text-sakura-700 font-bold py-3 px-8 rounded-full shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1">
+        お問い合わせ
+      </a>
+    </div>
+  </div>
+
+  <div class="mt-16 w-full">
+    <h2 class="text-2xl font-bold text-center text-sakura-800 mb-8">注目のプロジェクト</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Pantry Quest Project Card -->
+      <a href="/docs?category=Pantry%20Quest" class="block group">
+        <div class="bg-white rounded-3xl p-8 border-2 border-transparent hover:border-sakura-200 shadow-sm hover:shadow-xl transition-all duration-300">
+          {hasPqLogo ? (
+            <img src={pqLogoSrc} alt="Pantry Quest Logo" class="w-16 h-16 rounded-2xl object-cover mb-6 shadow-sm border border-gray-100" />
+          ) : (
+            <div class="w-16 h-16 bg-orange-100 text-orange-500 rounded-2xl flex items-center justify-center text-3xl mb-6">
+              🍱
+            </div>
+          )}
+          <h3 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-sakura-600 transition-colors">
+            Pantry Quest
+          </h3>
+          <p class="text-gray-600 mb-4 line-clamp-3">
+            冷蔵庫の余り物をAIが賢く管理してくれる、サクサク動く在庫管理アプリ。
+            「もう賞味期限を気にしない」生活をサポートします。
+          </p>
+          <span class="text-sakura-500 font-medium group-hover:underline underline-offset-4">関連ドキュメントを見る &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Future Project Placeholder -->
+      <div class="bg-gray-50 rounded-3xl p-8 border-2 border-dashed border-gray-200 flex flex-col items-center justify-center text-center opacity-70">
+        <div class="w-16 h-16 bg-gray-200 text-gray-400 rounded-2xl flex items-center justify-center text-3xl mb-4">
+          ✨
+        </div>
+        <h3 class="text-xl font-bold text-gray-400 mb-2">Coming Soon...</h3>
+        <p class="text-gray-400 text-sm">
+          新しい「ちゃめっ気」あふれるツールを鋭意開発中です。
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

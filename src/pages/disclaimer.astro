@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+---
+
+<BaseLayout title="免責事項">
+  <Breadcrumbs items={[{ label: '免責事項' }]} />
+  
+  <article class="prose prose-sakura max-w-none bg-white p-8 rounded-2xl shadow-sm border border-sakura-100">
+    <h1 class="text-3xl font-bold text-sakura-900 mb-6">免責事項</h1>
+    
+    <div class="space-y-6 text-gray-700">
+      <p>
+        当サイト（Sakura Potions Portal）からのリンクやバナーなどで移動したサイトで提供される情報、サービス等について一切の責任を負いません。
+      </p>
+      <p>
+        また当サイトのコンテンツ・情報について、できる限り正確な情報を提供するように努めておりますが、正確性や安全性を保証するものではありません。情報が古くなっていることもございます。
+      </p>
+      <p>
+        当サイトに掲載された内容によって生じた損害等の一切の責任を負いかねますのでご了承ください。
+      </p>
+    </div>
+  </article>
+</BaseLayout>
